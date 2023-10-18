@@ -23,7 +23,7 @@ def plot_kmeans(d, etiquetas, dicc_centroides, i_centroides=True, f_centroides=T
     Gráfica de los clústers y los centroides (si se especifica).
     """
     fig = go.Figure()
-    colores_clusters = ['blue', 'purple', 'orange', 'red', 'green']
+    colores_clusters = ['lightcoral',  'rosybrown', 'orchid', 'darkviolet','yellowgreen', 'darkorange', 'darkkhaki']
 
     dimensiones = d.shape[1]
 
@@ -39,14 +39,14 @@ def plot_kmeans(d, etiquetas, dicc_centroides, i_centroides=True, f_centroides=T
             i_centroides = dicc_centroides['iteracion_1']
 
             fig.add_trace(go.Scatter(x=i_centroides[:, 0], y=i_centroides[:, 1], mode='markers',
-                                     marker=dict(symbol='circle', size=10, color='black', line=dict(width=2)),
+                                     marker=dict(symbol='circle', size=7, color='black', line=dict(width=2)),
                                      name='Centroides Iniciales'))
 
         if f_centroides:
             f_centroides = dicc_centroides[f'iteracion_{len(dicc_centroides)}']
             
             fig.add_trace(go.Scatter(x=f_centroides[:, 0], y=f_centroides[:, 1], mode='markers',
-                                 marker=dict(symbol='x', size=10, color='green', line=dict(width=2)),
+                                 marker=dict(symbol='x', size=7, color='green', line=dict(width=2)),
                                  name='Centroides Finales'))
 
         # Configuración y mostrar gráfica
@@ -57,25 +57,25 @@ def plot_kmeans(d, etiquetas, dicc_centroides, i_centroides=True, f_centroides=T
         for i in range(len(np.unique(etiquetas))):
             idx = np.where(etiquetas == i)
             fig.add_trace(go.Scatter3d(x=d[idx, 0][0], y=d[idx, 1][0], z=d[idx, 2][0], mode='markers',
-                                       marker=dict(color=colores_clusters[i]), 
-                                       name=f'Cluster {i+1}'))
+                                    marker=dict(color=colores_clusters[i]), 
+                                    name=f'Cluster {i+1}'))
 
         if i_centroides:          
             i_centroides = dicc_centroides['iteracion_1']
 
-            fig.add_trace(go.Scatter(x=i_centroides[:, 0], y=i_centroides[:, 1], mode='markers',
-                                     marker=dict(symbol='circle', size=10, color='black', line=dict(width=2)),
-                                     name='Centroides Iniciales'))
+            fig.add_trace(go.Scatter3d(x=i_centroides[:, 0], y=i_centroides[:, 1], z=i_centroides[:, 2], mode='markers',
+                                    marker=dict(symbol='circle', size=5, color='black', line=dict(width=2)),
+                                    name='Centroides Iniciales'))
 
         if f_centroides:
             f_centroides = dicc_centroides[f'iteracion_{len(dicc_centroides)}']
             
-            fig.add_trace(go.Scatter(x=f_centroides[:, 0], y=f_centroides[:, 1], mode='markers',
-                                 marker=dict(symbol='x', size=10, color='green', line=dict(width=2)),
-                                 name='Centroides Finales'))
+            fig.add_trace(go.Scatter3d(x=f_centroides[:, 0], y=f_centroides[:, 1], z=f_centroides[:, 2], mode='markers',
+                                marker=dict(symbol='x', size=3, color='purple', line=dict(width=2)),
+                                name='Centroides Finales'))
 
         # Configuración y mostrar gráfica
-        fig.update_layout(title="Centroides Iniciales y Finales en K-Means 3D")
+        fig.update_layout(title="K-Means 3D")
         fig.show()
 
     else:
