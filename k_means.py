@@ -23,7 +23,6 @@ def kmeans(d, k):
     """
     array_centroides = genera_centroides(d, k)
     n_centroides = np.copy(array_centroides)
-    tolerancia = 1e-4
 
     dicc_centroides = {}
 
@@ -33,7 +32,7 @@ def kmeans(d, k):
         n_centroides = np.array([d[etiquetas == i].mean(axis=0) for i in range(k)])
 
         # criterio de convergencia
-        if np.linalg.norm(array_centroides - n_centroides) < tolerancia:
+        if np.all(array_centroides == n_centroides):
             break
 
         array_centroides = np.copy(n_centroides)
